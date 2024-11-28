@@ -5,9 +5,10 @@
     nixpkgs.url = "nixpkgs/nixos-24.11";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -22,7 +23,14 @@
       homeConfigurations = {
         ectos = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix 
+            # {
+            #  home.packages = with pkgs; [
+            #    inputs.zen-browser.packages."${system}".default
+            #  ];
+            # }
+          ];
         };
       };
     };

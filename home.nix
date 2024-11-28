@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs , ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -18,6 +18,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.wezterm
+    pkgs.kitty
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -87,6 +90,39 @@
   programs.zoxide = {
     enable = true;
     enableBashIntegration = true;
+  };
+
+  programs.git = {
+    enable = true;
+    userEmail = "coder0807@gmail.com";
+    userName = "Capta1nCool";
+  };
+
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      -- Lua configuration for WezTerm
+      local wezterm = require 'wezterm'
+      
+      local config = wezterm.config_builder()
+
+      -- Rendering fix
+      config.enable_wayland = false
+      config.front_end = "WebGpu" 
+
+      -- Appearance
+      config.color_scheme = 'Catppuccin Mocha'
+      config.font = wezterm.font('JetBrainsMono Nerd Font')
+      config.font_size = 10;
+
+      -- Tab bar
+      config.hide_tab_bar_if_only_one_tab = true;
+      config.use_fancy_tab_bar = false
+      config.tab_bar_at_bottom = true;
+
+       
+      return config
+    ''; 
   };
 
   # Let Home Manager install and manage itself.

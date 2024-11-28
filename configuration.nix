@@ -118,8 +118,8 @@
     pnpm
     zoxide
     wget
-
     git
+    obsidian
   ];
 
   services.keyd = {
