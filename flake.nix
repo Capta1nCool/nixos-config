@@ -1,37 +1,34 @@
 {
-  description = "My first flake!";
+  description = "Capt's nixos system";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.11";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # zen-browser.url = "github:MarceColl/zen-browser-flake";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.11";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      nixosConfigurations = {
-        nixos = lib.nixosSystem {
-          inherit system;
-          modules = [ ./configuration.nix ];
-        };
-      };
-      homeConfigurations = {
-        ectos = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            ./home.nix 
-            # {
-            #  home.packages = with pkgs; [
-            #    inputs.zen-browser.packages."${system}".default
-            #  ];
-            # }
-          ];
-        };
+  outputs = { self, nixpkgs, home-manager, ... }@ inputs: let
+    inherit (self) outputs;
+  in {
+    nixosConfigurations = {
+      hydra = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./machines/hydra.nix];
       };
     };
+
+    homeConfigurations = {
+      "ectos" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./users/ectos/home-manager.nix # User home manager config
+          ./users/ectos/nixos.nix # User os config
+        ];
+      };
+    };
+  };
 }
