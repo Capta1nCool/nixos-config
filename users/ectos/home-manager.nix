@@ -21,7 +21,10 @@
     pkgs.telegram-desktop
 
     pkgs.zed-editor
-    pkgs.gh
+    pkgs.zig
+    pkgs.zls
+    pkgs.rust-analyzer
+    pkgs.rustup
     # pkgs.obsidian
   ];
 
