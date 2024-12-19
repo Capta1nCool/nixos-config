@@ -1,31 +1,44 @@
-{ config, pkgs , ... }:
+{ config, pkgs , inputs, ... }:
 
 {
+  imports = [
+    ../../modules/nixvim.nix
+  ];
+
   home.username = "ectos";
   home.homeDirectory = "/home/ectos";
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
+
+  nixpkgs.config.allowUnfree = true;
   
   home.packages = [
-    # terminals
+    # CLI apps
 
     pkgs.wezterm
     pkgs.kitty
     pkgs.alacritty
     pkgs.starship
     pkgs.zoxide
+    pkgs.tmux
+    pkgs.helix
 
     # Apps
 
     pkgs.brave
     pkgs.telegram-desktop
-
+    pkgs.obsidian
     pkgs.zed-editor
+    pkgs.libreoffice
+    inputs.zen-browser.packages.${pkgs.system}.default
+
+
+   # Languages
+
     pkgs.zig
     pkgs.zls
-    pkgs.rust-analyzer
     pkgs.rustup
-    # pkgs.obsidian
+    pkgs.lua-language-server
   ];
 
   programs.bash = {
@@ -78,6 +91,14 @@
       return config
     ''; 
   };
+/*
+  programs.nixvim = {
+    enable = true;
+
+    colorschemes.tokyonight.enable = true;
+    plugins.lualine.enable = true;
+  }; 
+  */
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
