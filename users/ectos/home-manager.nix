@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/nixvim.nix
+    # ../../modules/nixvim.nix
   ];
 
   home.username = "ectos";

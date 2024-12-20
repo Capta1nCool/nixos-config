@@ -14,119 +14,18 @@
       plugins = true;
     };
 
-    colorschemes.catppuccin.enable = true;
+    colorschemes.tokyonight.enable = true;
 
     plugins = {
-      lz-n.enable = true;
       web-devicons.enable = true;
-      transparent.enable = true;
-      neocord.enable = true;
-      intellitab.enable = true;
-
       telescope = {
         enable = true;
-        keymaps = { "<leader>fg" = "live_grep"; };
-      };
-
-      which-key = { enable = true; };
-
-      snacks = {
-        enable = true;
-        settings = {
-          bigfile = { enabled = true; };
-          notifier = {
-            enabled = true;
-            timeout = 3000;
-          };
-          quickfile = { enabled = false; };
-          statuscolumn = { enabled = false; };
-          words = {
-            debounce = 100;
-            enabled = true;
-          };
+        keymaps = {
+          "<leader>sg" = "live_grep";
+          "<leader>sf" = "find_files";
         };
       };
 
-      mini = {
-        enable = true;
-        modules = {
-          ai = {
-            n_lines = 50;
-            search_method = "cover_or_next";
-          };
-          comment = {
-            mappings = {
-              comment = "<leader>/";
-              comment_line = "<leader>/";
-              comment_visual = "<leader>/";
-              textobject = "<leader>/";
-            };
-          };
-          diff = { view = { style = "sign"; }; };
-          starter = {
-            content_hooks = {
-              "__unkeyed-1.adding_bullet" = {
-                __raw = "require('mini.starter').gen_hook.adding_bullet()";
-              };
-              "__unkeyed-2.indexing" = {
-                __raw =
-                  "require('mini.starter').gen_hook.indexing('all', { 'Builtin actions' })";
-              };
-              "__unkeyed-3.padding" = {
-                __raw =
-                  "require('mini.starter').gen_hook.aligning('center', 'center')";
-              };
-            };
-            evaluate_single = true;
-            header = ''
-              ██╗  ██╗██╗    ██╗  ██╗███████╗██████╗ ███████╗███╗   ███╗██╗
-              ██║  ██║██║    ██║ ██╔╝██╔════╝██╔══██╗██╔════╝████╗ ████║██║
-              ███████║██║    █████╔╝ █████╗  ██████╔╝█████╗  ██╔████╔██║██║
-              ██╔══██║██║    ██╔═██╗ ██╔══╝  ██╔══██╗██╔══╝  ██║╚██╔╝██║╚═╝
-              ██║  ██║██║    ██║  ██╗███████╗██║  ██║███████╗██║ ╚═╝ ██║██╗
-              ╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝
-            '';
-            items = {
-              "__unkeyed-1.buildtin_actions" = {
-                __raw = "require('mini.starter').sections.builtin_actions()";
-              };
-              "__unkeyed-2.recent_files_current_directory" = {
-                __raw =
-                  "require('mini.starter').sections.recent_files(10, false)";
-              };
-              "__unkeyed-3.recent_files" = {
-                __raw =
-                  "require('mini.starter').sections.recent_files(10, true)";
-              };
-              "__unkeyed-4.sessions" = {
-                __raw = "require('mini.starter').sections.sessions(5, true)";
-              };
-            };
-          };
-          surround = {
-            mappings = {
-              add = "gsa";
-              delete = "gsd";
-              find = "gsf";
-              find_left = "gsF";
-              highlight = "gsh";
-              replace = "gsr";
-              update_n_lines = "gsn";
-            };
-          };
-        };
-      };
-      leap.enable = true;
-      blink-cmp = {
-        enable = true;
-        settings = {
-          accept = { auto_brackets = { enabled = false; }; };
-          windows.documentation = { auto_show = true; };
-          highlight = { use_nvim_cmp_as_default = true; };
-          keymap = { preset = "super-tab"; };
-          trigger = { signature_help = { enabled = true; }; };
-        };
-      };
       neo-tree.enable = true;
 
       cmp = {
@@ -163,8 +62,6 @@
         enable = true;
         settings.enable_autosnippets = true;
       };
-
-      nvim-autopairs.enable = true;
 
       lualine.enable = true;
 
